@@ -26,6 +26,7 @@ build/SpeachToText-Android_Qt_6_6_1_Clang_arm64_v8a-Debug/qtcsettings.cmake
 build/SpeachToText-Android_Qt_6_6_1_Clang_arm64_v8a-Debug/speachtotext_qmltyperegistrations.cpp
 
 build/SpeachToText-Desktop_Qt_6_6_1_MSVC2019_64bit-Debug/
+build/SpeachToText_Qt-Qml-Desktop_Qt_6_6_1_MSVC2019_64bit-Debug/
 
 desktop.ini
 CMakeLists.txt.user

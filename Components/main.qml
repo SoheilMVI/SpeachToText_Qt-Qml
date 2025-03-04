@@ -1,5 +1,9 @@
 import QtQuick
 import QtQuick.Window
+import QtQuick.Controls
+
+import Recognizer 1.0
+import SampleAudioCollector 1.0
 
 Window {
     id: root
@@ -8,10 +12,9 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-
-    QtObject{
+    QtObject {
         id: theme
-        property color mainBackground : "#0D0D0D"
+        property color mainBackground: "#0D0D0D"
         property color surfaceColor: "#1F1F1F"
         property color primaryText: "#FFFFFF"
         property color secondaryText: "#B3B3B3"
@@ -22,21 +25,20 @@ Window {
     }
 
     // color: theme.mainBackground
-
     Rectangle {
         id: panel
-        anchors{
+        anchors {
             left: parent.left
             top: parent.top
             bottom: parent.bottom
             margins: 10
         }
-        width: parent.width/2
+        width: parent.width / 2
         color: theme.surfaceColor
-        ListView{
+        ListView {
             anchors.fill: parent
             anchors.margins: 10
-            model: ListModel{
+            model: ListModel {
                 id: logModel
             }
             delegate: Text {
@@ -48,9 +50,9 @@ Window {
         }
     }
 
-    Text{
+    Text {
         id: tmpData
-        anchors{
+        anchors {
             top: parent.top
             right: textArea.right
             left: textArea.left
@@ -62,20 +64,20 @@ Window {
 
     Rectangle {
         id: textArea
-        anchors{
+        anchors {
             right: parent.right
             left: panel.right
             top: tmpData.bottom
             bottom: parent.bottom
             margins: 10
         }
-        width: parent.width/2
+        width: parent.width / 2
         color: theme.surfaceColor
 
-        ListView{
+        ListView {
             anchors.fill: parent
             anchors.margins: 10
-            model: ListModel{
+            model: ListModel {
                 id: resultModel
             }
             delegate: Text {
@@ -87,16 +89,45 @@ Window {
         }
     }
 
+    Recognizer {
+        id: rec
+        Component.onCompleted: start()
+    }
+
+    SampleAudioCollector {
+        id: sampleAudioCollector
+    }
+
+    AudioSampleLevel {
+        id: audioSampleLevel
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
+        height: 300
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: sampleAudioCollector.setAbstractSeries(
+                       audioSampleLevel.mainSeries)
+    }
+
     Connections {
         target: rec
         function onNewData(data) {
-            resultModel.append({"modelData":data})
+            resultModel.append({
+                                   "modelData": data
+                               })
         }
         function onTmpData(data) {
             tmpData.text = data
         }
         function onNewLog(data) {
-            logModel.append({"modelData":data})
+            logModel.append({
+                                "modelData": data
+                            })
         }
     }
 }

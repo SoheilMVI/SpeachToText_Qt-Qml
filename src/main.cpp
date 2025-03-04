@@ -1,27 +1,26 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
+#include <QApplication>
 #include <QDebug>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
 
 #include "includes/Recognizer.h"
+#include "includes/SampleAudioCollector.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
 
-    Recognizer rec;
-    rec.start();
-    engine.rootContext()->setContextProperty("rec", &rec);
+    qmlRegisterType<Recognizer>("Recognizer", 1, 0, "Recognizer");
+    qmlRegisterType<SampleAudioCollector>("SampleAudioCollector", 1, 0, "SampleAudioCollector");
 
     const QUrl url(QStringLiteral("qrc:/SpeachToText/Components/main.qml"));
 
     QObject::connect(
-        &engine,
-        &QQmlApplicationEngine::objectCreated,
-        &app,
-        [url](QObject *obj, const QUrl &objUrl) {
+        &engine, &QQmlApplicationEngine::objectCreated, &app,
+        [url](QObject *obj, const QUrl &objUrl)
+        {
             if (!obj && url == objUrl)
                 QCoreApplication::exit(-1);
         },

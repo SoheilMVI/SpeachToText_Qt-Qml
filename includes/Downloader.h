@@ -25,6 +25,7 @@ public:
     void startDownloading(QString url);
 
     void requestPermissions(QString permission);
+    QString getDownloadedModelPath();
 private slots:
     void onReadyRead();
     void onDownloadFinished();
@@ -37,7 +38,7 @@ signals:
 
 private:
     QString url;
-    QString filePath;
+    QString downloadedModelPath;
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     QFile file;

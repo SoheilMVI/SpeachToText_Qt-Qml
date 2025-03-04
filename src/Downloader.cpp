@@ -20,9 +20,9 @@ void Downloader::startDownloading(QString url)
 {
     this->url = url;
 
-    filePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/Model/" + url.split('/').last();
-    qDebug() << filePath;
-    file.setFileName(filePath);
+    downloadedModelPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/Model/" + url.split('/').last();
+    qDebug() << downloadedModelPath;
+    file.setFileName(downloadedModelPath);
     if(!file.open(QIODeviceBase::ReadWrite)){
         qDebug() << Warnings::CanNotOpenModelPath;
     }
@@ -72,7 +72,7 @@ void Downloader::onDownloadFinished()
     qDebug() << Infos::DownloadFinished;
 
     Uncompressor uncompressor;
-    if(uncompressor.uncompresse(filePath)){
+    if(uncompressor.uncompresse(downloadedModelPath)){
         qDebug() << Infos::ExtractFinished;
         emit downloadFinished();
     }else{
@@ -80,7 +80,7 @@ void Downloader::onDownloadFinished()
     }
 
     //To-Do
-    if(QFile::remove(filePath))
+    if(QFile::remove(downloadedModelPath))
         qDebug() << Success::DownloadeFileRemoved;
     else
         qDebug() << Warnings::CanNotRemoveDownloadFile;
@@ -101,3 +101,8 @@ void Downloader::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
     emit logger(size);
 }
 
+
+QString Downloader::getDownloadedModelPath()
+{
+    return downloadedModelPath;
+}

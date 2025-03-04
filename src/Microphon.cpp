@@ -1,24 +1,38 @@
 #include "includes/Microphon.h"
 
-Microphon::Microphon() {
+Microphon::Microphon(qint32 timerInterval)
+{
+    interval = timerInterval;
     printDevices();
 }
 
-void Microphon::init()
+void Microphon::init(bool useCustomFormat)
 {
-    verifyFormat();
+    if (!useCustomFormat)
+        verifyFormat();
     createBuffer();
+    startAudio();
+    createConnections();
+}
 
+void Microphon::init(QAudioFormat inputFormat)
+{
+    format = inputFormat;
+    init(true);
+}
+
+void Microphon::startAudio()
+{
     audio = new QAudioSource(deviceInfo, format, this);
     audio->start(buffer);
-    createConnections();
 }
 
 void Microphon::verifyFormat()
 {
     deviceInfo = QAudioDevice(QMediaDevices::defaultAudioInput());
     qDebug() << Infos::DefaultDeviceList << deviceInfo.description();
-    if (!deviceInfo.isFormatSupported(format)) {
+    if (!deviceInfo.isFormatSupported(format))
+    {
         qDebug() << Warnings::AudioFormatNotSupported;
 
         format = deviceInfo.preferredFormat();
@@ -30,6 +44,7 @@ void Microphon::verifyFormat()
 
 void Microphon::createConnections()
 {
+
     connect(audio, &QAudioSource::stateChanged, this, &Microphon::stateChecker);
     connect(&timer, &QTimer::timeout, this, &Microphon::timerTrigerd);
 }
@@ -39,7 +54,7 @@ void Microphon::createBuffer()
     buffer = new QBuffer(&audioData, this);
     buffer->open(QIODevice::ReadWrite);
 
-    timer.start(500);
+    timer.start(interval);
 }
 
 void Microphon::stop()
@@ -61,11 +76,15 @@ int Microphon::blockSize()
 
 void Microphon::stateChecker(QAudio::State state)
 {
-    switch (state) {
+    switch (state)
+    {
     case QAudio::StoppedState:
-        if (audio->error() != QAudio::NoError) {
+        if (audio->error() != QAudio::NoError)
+        {
             // Error handling
-        } else {
+        }
+        else
+        {
             qDebug() << Infos::RecordingFinished;
         }
         break;

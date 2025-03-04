@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #|                                                                                  |
 #̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶
 
-find_package(Qt6 6.2 COMPONENTS Core Quick Multimedia Network REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Charts Core Gui Qml Quick Multimedia Network REQUIRED)
 
 #̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶
 #|                                                                                  |
@@ -102,8 +102,11 @@ set_target_properties(SpeachToText PROPERTIES
 
 target_link_libraries(SpeachToText
     PRIVATE
-    Qt6::Core
-    Qt6::Quick
+    Qt::Charts
+    Qt::Core
+    Qt::Gui
+    Qt::Qml
+    Qt::Quick
     Qt6::Multimedia
     Qt6::Network
     # ${LIB_DIR}/arm64-v8a/libcrypto.so
