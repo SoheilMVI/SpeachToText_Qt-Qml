@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Components/main.qml</file>
+        <file>Components/AudioSampleLevel.qml</file>
+        <file>Components/TopPanel/TopPanel.qml</file>
+        <file>Components/TopPanel/Buttons/Menu.qml</file>
+        <file>Components/TopPanel/Buttons/Info.qml</file>
+        <file>Components/MenuWindows.qml</file>
+        <file>Components/BottomPanel/BottomPanel.qml</file>
+        <file>Components/BottomPanel/Buttons/ModelSelector.qml</file>
+        <file>Components/BottomPanel/Buttons/Reset.qml</file>
+        <file>Components/BottomPanel/Buttons/Setting.qml</file>
+        <file>Components/BottomPanel/Buttons/Record.qml</file>
+        <file>Components/BottomPanel/Buttons/Share.qml</file>
+        <file>Resources/Icons/Tutorials.png</file>
+        <file>Resources/Icons/Tutorials2.png</file>
+        <file>Resources/Icons/Menu.png</file>
+        <file>Resources/Icons/languageModel.png</file>
+        <file>Resources/Icons/New.png</file>
+        <file>Resources/Icons/Record.png</file>
+        <file>Resources/Icons/resset.png</file>
+        <file>Resources/Icons/Setting.png</file>
+        <file>Resources/Icons/LanguageModel.png</file>
+        <file>Resources/Icons/Resset.png</file>
+        <file>Resources/Icons/Share.png</file>
+        <file>Components/Controls/MyButton.qml</file>
+    </qresource>
+    <qresource prefix="/Controls"/>
+</RCC>

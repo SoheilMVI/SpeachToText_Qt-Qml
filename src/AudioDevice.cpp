@@ -33,7 +33,7 @@ qint64 AudioDevice::writeData(const char *data, qint64 maxSize)
     }
 
     for (int s = start; s < sampleCount; ++s, data += resolution)
-        m_buffer[s].setY(qreal(uchar(*data) - 128) / qreal(128));
+        m_buffer[s].setY((qreal(uchar(*data) - 128) / qreal(128)) * 1.8);
 
     m_series->replace(m_buffer);
     return (sampleCount - start) * resolution;

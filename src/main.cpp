@@ -10,12 +10,13 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    qDebug() << "STEP 1";
     QQmlApplicationEngine engine;
 
     qmlRegisterType<Recognizer>("Recognizer", 1, 0, "Recognizer");
     qmlRegisterType<SampleAudioCollector>("SampleAudioCollector", 1, 0, "SampleAudioCollector");
 
-    const QUrl url(QStringLiteral("qrc:/SpeachToText/Components/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/Components/main.qml"));
 
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated, &app,

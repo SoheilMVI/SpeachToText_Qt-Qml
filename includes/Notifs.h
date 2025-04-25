@@ -1,10 +1,10 @@
 #pragma once
 
+#include <QDebug>
 #include <QObject>
 #include <QString>
-#include <QDebug>
 
-struct Warnings : public QObject //⚠️ Alerts the user about potential issues that may cause problems in the future.
+struct Warnings : public QObject // ⚠️ Alerts the user about potential issues that may cause problems in the future.
 {
     static inline QString pathNotExixst = tr("Model path not exist!");
     static inline QString ModelNotExist = tr("Can't find your model!");
@@ -13,15 +13,16 @@ struct Warnings : public QObject //⚠️ Alerts the user about potential issues
     static inline QString CanNotRemoveDownloadFile = tr("Dwonloaded file didn't remove!");
 };
 
-struct Errors : public QObject //❌ Indicates a serious issue that may cause certain parts of the application to malfunction.
+struct Errors : public QObject // ❌ Indicates a serious issue that may cause certain parts of the application to malfunction.
 {
     static inline QString OpenSSLNotSupport = tr("OpenSSL is not supported on this platform!");
     static inline QString CantMakeModelPath = tr("The path didn't create!");
     static inline QString CantOpenDownloadedFile = tr("Microz can't open the file!");
     static inline QString CantExtractDownloadedFile = tr("File didn't extract!");
+    static inline QString VoskModelNotCreated = tr("Vosk object didn't created!");
 };
 
-struct Infos : public QObject //🔵 Provides general information to the user, usually without requiring any action. Typically displayed in blue.
+struct Infos : public QObject // 🔵 Provides general information to the user, usually without requiring any action. Typically displayed in blue.
 {
     static inline QString OpenSSLExist = tr("OpenSSL is supported on this platform.");
     static inline QString ModelDwonloading = tr("Let's downloading en-us model...");
@@ -36,7 +37,7 @@ struct Infos : public QObject //🔵 Provides general information to the user, u
     static inline QString ExtractFinished = tr("Extract finished.");
 };
 
-struct Success : public QObject //✅ Indicates a successfully completed action, such as saving data or sending a message. Usually shown in green.
+struct Success : public QObject // ✅ Indicates a successfully completed action, such as saving data or sending a message. Usually shown in green.
 {
     static inline QString PermissionGranted = tr("Permission granted");
     static inline QString DownloadeFileRemoved = tr("Downloade file removed.");
@@ -44,18 +45,14 @@ struct Success : public QObject //✅ Indicates a successfully completed action,
 
 struct Debugs : public QObject // Used by developers to display internal system information for debugging purposes.
 {
-
 };
 
-struct Fatals : public QObject //🔥 Similar to an Error but more severe, often causing the system to crash.
+struct Fatals : public QObject // 🔥 Similar to an Error but more severe, often causing the system to crash.
 {
     static inline QString PermissionDenied = tr("Permission denied!");
 };
 
-struct Prompts : public QObject //📝Asks the user to take a specific action, such as confirming or canceling an operation.
+struct Prompts : public QObject // 📝Asks the user to take a specific action, such as confirming or canceling an operation.
 {
     static inline QString pathNotExixst = tr("");
 };
-
-
-

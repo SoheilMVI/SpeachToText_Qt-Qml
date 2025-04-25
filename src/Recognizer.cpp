@@ -43,7 +43,7 @@ void Recognizer::verifyModelDir()
 void Recognizer::verifyModel()
 {
     if (modelLanguage == "")
-        modelLanguage = small_En;
+        modelLanguage = small_Fa;
 
     if (!isModelExist(modelLanguage))
     {
@@ -70,8 +70,12 @@ void Recognizer::createRecognizer()
     verifyMicrophone();
 
     QByteArray byteArray = (modelPath + modelLanguage).toUtf8();
+    qDebug() << modelPath + modelLanguage;
     const char *modelPathC = byteArray.constData();
     model = vosk_model_new(modelPathC);
+
+    if (!model)
+        qDebug() << Errors::VoskModelNotCreated;
 
     block = microphon->blockSize();
     recognizer = vosk_recognizer_new(model, block);
