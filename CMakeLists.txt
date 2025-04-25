@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(SpeachToText VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶
@@ -37,10 +38,10 @@ file(GLOB HEADERS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/includes/libs/*.h"
 )
-file(GLOB QML_FILES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Components/*.qml"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Components/*/*.qml"
-)
+# file(GLOB QML_FILES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+#     "${CMAKE_CURRENT_SOURCE_DIR}/Components/*.qml"
+#     "${CMAKE_CURRENT_SOURCE_DIR}/Components/*/*.qml"
+# )
 
 #̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶
 #|                                                                                  |
@@ -57,7 +58,8 @@ qt_add_qml_module(SpeachToText
     VERSION 1.0
     SOURCES ${SOURCES}
     SOURCES ${HEADERS}
-    QML_FILES ${QML_FILES}
+    # QML_FILES ${QML_FILES}
+    RESOURCES Resources.qrc
 )
 
 #̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶
@@ -74,11 +76,27 @@ if(ANDROID)
         ${LIB_DIR}/arm64-v8a/libvosk.so
         ${LIB_DIR}/arm64-v8a/libqmicroz.so
     )
+    # Ensure libraries are included in the APK
+    # set_target_properties(SpeachToText PROPERTIES
+    #     QT_ANDROID_EXTRA_LIBS "${LIB_FILES}"
+    # )
 elseif(WIN32)
     set(LIB_FILES
         ${LIB_DIR}/Windows/libvosk.lib
         ${LIB_DIR}/Windows/qmicroz.lib
     )
+# # Copy DLLs to the executable directory
+#     set(DLL_FILES
+#         ${LIB_DIR}/Windows/libvosk.dll
+#         ${LIB_DIR}/Windows/qmicroz.dll
+#     )
+#     foreach(DLL ${DLL_FILES})
+#         add_custom_command(TARGET SpeachToText POST_BUILD
+#             COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#             ${DLL}
+#             $<TARGET_FILE_DIR:SpeachToText>
+#         )
+#     endforeach()
 endif()
 
 #̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶
